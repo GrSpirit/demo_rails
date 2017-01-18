@@ -28,10 +28,11 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
     end
     user = User.find_by_email(@params[:user][:email])
     assert_not_nil user
-    assert_redirected_to user
+    assert_not user.activated?
+    assert_redirected_to root_url
     follow_redirect!
-    assert_template 'users/show'
-    assert_not_empty flash
-    assert is_logged_in?
+    #assert_template 'users/show'
+    #assert_not_empty flash
+    #assert is_logged_in?
   end
 end
